@@ -9,13 +9,15 @@ class Character {
     protected $fontRotation;
     protected $width;
     protected $height;
+    protected $minWidth;
 
-    function __construct($character, $color, $font, $fontSize, $fontRotation = 0) {
+    function __construct($character, $color, $font, $fontSize, $minWidth = 3, $fontRotation = 0) {
         $this->character = $character;
         $this->color = $color;
         $this->font = $font;
         $this->fontSize = $fontSize;
         $this->fontRotation = $fontRotation;
+        $this->minWidth = $minWidth;
 
         // Calculate width and height
         $rect = imagettfbbox($this->getFontSize(), $this->getFontRotation(), $this->getFont(), $this->getCharacter());
@@ -24,7 +26,7 @@ class Character {
         $minY = min(array($rect[1], $rect[3], $rect[5], $rect[7]));
         $maxY = max(array($rect[1], $rect[3], $rect[5], $rect[7]));
 
-        $this->width = $maxX - $minX;
+        $this->width = max($maxX - $minX, $this->minWidth);
         $this->height = $maxY - $minY;
     }
 
@@ -84,8 +86,20 @@ class Character {
         $this->height = $height;
     }
 
+    public function getMinWidth() {
+        return $this->minWidth;
+    }
+
+    public function setMinWidth($minWidth) {
+        $this->minWidth = $minWidth;
+    }
+
     public function isWhiteSpace() {
         return ($this->getCharacter() === ' ');
+    }
+
+    public function isSmall() {
+        return $this->width < $this->minWidth;
     }
 
 }

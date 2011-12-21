@@ -41,7 +41,7 @@ class Textorizer {
 
         $ti = 0;
         $fontHeight = imagefontheight($this->fontSize);
-        $font_width = imagefontwidth($this->fontSize) * 0.6;
+        $fontWidth = imagefontwidth($this->fontSize) * 0.6;
 
         for ($y = 0; $y < $imageToTextorize->getHeight(); $y+=$fontHeight) {
             $rx = 1;
@@ -53,14 +53,14 @@ class Textorizer {
                 if (!$colorImage->isWhite()) {               
                     $c = $string[$ti % strlen($string)];
                     $character = new Character($c, $colorImage, $this->font, $this->fontSize);
-                    $font_width = $character->getWidth();
+                    $fontWidth = $character->getWidth();
                     if (!$character->isWhiteSpace()) {
                         $fontHeightMax = ($fontHeightMax < $character->getHeight()) ? $character->getHeight() : $fontHeightMax;
                         $imageTextorized->renderCharacter($character, $x, $y);
                     }
                     $ti++;
                 } 
-                $rx += $font_width;
+                $rx += $fontWidth;
             }
             $fontHeightMax = (!$fontHeightMax)?$fontHeight:$fontHeightMax;
             $fontHeight = $fontHeightMax;
