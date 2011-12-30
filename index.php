@@ -7,15 +7,15 @@ if(isset($_POST['submit'])) {
     // $filename = "coca_cola_logo.gif";
 
     $tags = array(
-        'Javier',
-        'Paco',
-        'Ana',
-        'Noelia',
-        'Yara',
-        'José Luís',
-        'Miguel Ángel',
-        'Eugenio',
-        'Fran'
+        'Javier' => 1,
+        'Paco' => 1,
+        'Ana' => 1,
+        'Noelia' => 1,
+        'Yara' => 1,
+        'José Luís' => 1,
+        'Miguel Ángel' => 1,
+        'Eugenio' => 1,
+        'Fran' => 1
     );
 
 

@@ -2,8 +2,7 @@
 
 class Character {
 
-    protected $character;
-    protected $color;
+    protected $character;    
     protected $font;
     protected $fontSize;
     protected $fontRotation;
@@ -11,9 +10,8 @@ class Character {
     protected $height;
     protected $minWidth;
 
-    function __construct($character, $color, $font, $fontSize, $minWidth = 3, $fontRotation = 0) {
-        $this->character = $character;
-        $this->color = $color;
+    function __construct($character, $font, $fontSize, $minWidth = 3, $fontRotation = 0) {
+        $this->character = $character;        
         $this->font = $font;
         $this->fontSize = $fontSize;
         $this->fontRotation = $fontRotation;
@@ -36,14 +34,6 @@ class Character {
 
     public function setCharacter($character) {
         $this->character = $character;
-    }
-
-    public function getColor() {
-        return $this->color;
-    }
-
-    public function setColor($color) {
-        $this->color = $color;
     }
 
     public function getFontSize() {

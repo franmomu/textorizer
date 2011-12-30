@@ -78,8 +78,8 @@ class Image {
         imagefilledrectangle($this->getImage(), 0, 0, $this->getWidth(), $this->getHeight(), $imageColor);
     }
     
-    public function renderCharacter(Character $character, $x, $y) {
-        $color = $this->getColor($character->getColor());        
+    public function renderCharacter(Character $character, Color $color, $x, $y) {
+        $color = $this->getColor($color);        
         imagettftext($this->getImage(), $character->getFontSize(), $character->getFontRotation(), $x, $y, $color, $character->getFont(), $character->getCharacter());
     }
 

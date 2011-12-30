@@ -20,7 +20,7 @@ class Textorizer {
     public function textorize() {
         // Pasa el array de tags a cadena de texto
         // En un futuro podría ser un array con cada posición un objeto de tipo Character
-        $string = $this->getTextFromTags();
+        $characters = $this->getCharactersFromTags();
         // Se crea el objeto Image de la imagen que se quiere textorizar
         $imageToTextorize = Image::createImageFromFilename($this->filename);
         // Se crea la imagen textorizada donde se va a escribir
@@ -58,9 +58,7 @@ class Textorizer {
                 // Si el punto no es blanco se escribe
                 if (!$colorImage->isWhite() && !$colorImage->isTransparent()) {         
                     // Se obtiene el caracter a escribir      
-                    $c = $string[$ti % strlen($string)];
-                    // Se crea un objeto de tipo Character 
-                    $character = new Character($c, $colorImage, $this->font, $this->fontSize);
+                    $character = $characters[$ti % count($characters)];
                     // Se obtiene el ancho del caracters
                     $fontWidth = $character->getWidth();
                     // Si el caracter no es un espacio en blanco se imprime
@@ -69,7 +67,7 @@ class Textorizer {
                         // Se obtiene la altura máxima
                         $fontHeightMax = ($fontHeightMax < $character->getHeight()) ? $character->getHeight() : $fontHeightMax;
                         // Se escribe el caracter en la imagen a textorizar
-                        $imageTextorized->renderCharacter($character, $x, $y);
+                        $imageTextorized->renderCharacter($character, $colorImage, $x, $y);
                     }
                     $ti++;
                 } 
@@ -86,14 +84,20 @@ class Textorizer {
         imagedestroy($imageTextorized->getImage());
     }
 
-    private function getTextFromTags() {
-        $string = implode(' ', $this->tags);
-        $string.=" ";
-        $string = mb_convert_encoding($string, 'HTML-ENTITIES',"UTF-8");
-        // Convert HTML entities into ISO-8859-1
-        $string = html_entity_decode($string,ENT_NOQUOTES, "ISO-8859-1");
-
-        return $string;
+    private function getCharactersFromTags() {
+        $characters = array();
+        foreach($this->tags as $tag => $weight) {
+            $fontWeight = 1+($weight/5);            
+            $string = mb_convert_encoding($tag, 'HTML-ENTITIES',"UTF-8");
+                // Convert HTML entities into ISO-8859-1
+            $string = html_entity_decode($string,ENT_NOQUOTES, "ISO-8859-1");
+            for($i = 0; $i < strlen($string);$i++) {
+               
+                $characters[] = new Character($string[$i], $this->font, $this->fontSize*$fontWeight);    
+            }                     
+            $characters[] = new Character(" ", $this->font, $this->fontSize);   
+        }
+        return $characters;
     }
 
 
