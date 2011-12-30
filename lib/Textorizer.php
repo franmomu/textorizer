@@ -88,9 +88,9 @@ class Textorizer {
 
     private function getCharactersFromTags() {
         $characters = array();
-        foreach($this->tags as $tag => $weight) {
-            $fontWeight = 1+($weight/5);            
-            $string = mb_convert_encoding($tag, 'HTML-ENTITIES',"UTF-8");
+        foreach($this->tags as $tag) {
+            $fontWeight = 1+($tag->getWeight()/5);            
+            $string = mb_convert_encoding($tag->getText(), 'HTML-ENTITIES',"UTF-8");
                 // Convert HTML entities into ISO-8859-1
             $string = html_entity_decode($string,ENT_NOQUOTES, "ISO-8859-1");
             for($i = 0; $i < strlen($string);$i++) {

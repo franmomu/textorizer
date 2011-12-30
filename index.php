@@ -1,23 +1,27 @@
 <?php
 
 include_once 'lib/Textorizer.php';
+include_once 'lib/Tag.php';
 
 if(isset($_POST['submit'])) {
+    
 
-    // $filename = "coca_cola_logo.gif";
-
-    $tags = array(
-        'Javier' => 1,
-        'Paco' => 1,
-        'Ana' => 1,
-        'Noelia' => 1,
-        'Yara' => 1,
-        'José Luís' => 1,
-        'Miguel Ángel' => 1,
-        'Eugenio' => 1,
-        'Fran' => 1
+    $textTags = array(
+        'Javier',
+        'Paco',
+        'Ana',
+        'Noelia',
+        'Yara',
+        'José Luís',
+        'Miguel Ángel',
+        'Eugenio',
+        'Fran'
     );
 
+    $tags = array();
+    foreach ($textTags as $tag) {
+        $tags[] = new Tag($tag);   
+    }       
 
     $image = $_FILES['image'];
     $textorizer = new Textorizer($image['tmp_name'], $tags, "8", "/usr/share/fonts/truetype/msttcorefonts/Verdana_Bold.ttf", true);
