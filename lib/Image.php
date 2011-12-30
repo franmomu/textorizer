@@ -78,7 +78,13 @@ class Image {
         imagefilledrectangle($this->getImage(), 0, 0, $this->getWidth(), $this->getHeight(), $imageColor);
     }
     
-    public function renderCharacter(Character $character, Color $color, $x, $y) {
+    public function renderCharacter(Character $character, Color $color, $x, $y, $shadow) {                
+        /* Shadow */
+        if($shadow) {
+            $colorShadow = $this->getColor(new Color(102,102,102));
+            imagettftext($this->getImage(), $character->getFontSize(), $character->getFontRotation(), $x+1, $y+1, $colorShadow, $character->getFont(), $character->getCharacter());
+        }        
+
         $color = $this->getColor($color);        
         imagettftext($this->getImage(), $character->getFontSize(), $character->getFontRotation(), $x, $y, $color, $character->getFont(), $character->getCharacter());
     }

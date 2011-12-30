@@ -9,12 +9,14 @@ class Textorizer {
     protected $font;
     protected $tags;
     protected $fontSize;
+    protected $shadow;
 
-    public function __construct($filename, $tags, $fontSize = "10", $font = "/Library/Fonts/Verdana.ttf") {
+    public function __construct($filename, $tags, $fontSize = "10", $font = "/Library/Fonts/Verdana.ttf", $shadow = true) {
         $this->filename = $filename;
         $this->tags = $tags; 
         $this->font = $font;
         $this->fontSize = $fontSize;    
+        $this->shadow = $shadow;  
     }
 
     public function textorize() {
@@ -44,7 +46,7 @@ class Textorizer {
         $fontHeight = imagefontheight($this->fontSize);
         $fontWidth = imagefontwidth($this->fontSize) * 0.6;
         // Se recorren las Y sumándole el alto de la fuente en cada iteración
-        for ($y = 0; $y < $imageToTextorize->getHeight(); $y+=$fontHeight) {
+        for ($y = $fontHeight; $y < $imageToTextorize->getHeight(); $y+=$fontHeight) {
             // rx será la posición de la x
             $rx = 1;
             // Este parámetro se usará para indicar la altura máxima en un línea
@@ -67,7 +69,7 @@ class Textorizer {
                         // Se obtiene la altura máxima
                         $fontHeightMax = ($fontHeightMax < $character->getHeight()) ? $character->getHeight() : $fontHeightMax;
                         // Se escribe el caracter en la imagen a textorizar
-                        $imageTextorized->renderCharacter($character, $colorImage, $x, $y);
+                        $imageTextorized->renderCharacter($character, $colorImage, $x, $y, $this->shadow);
                     }
                     $ti++;
                 } 

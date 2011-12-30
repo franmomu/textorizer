@@ -5,7 +5,7 @@ class Color {
     protected $green;
     protected $blue;
     protected $alpha;
-    function __construct($red, $green, $blue, $alpha) {
+    function __construct($red, $green, $blue, $alpha = 0) {
         $this->red = $red;
         $this->green = $green;
         $this->blue = $blue;
