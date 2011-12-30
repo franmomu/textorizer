@@ -56,7 +56,7 @@ class Textorizer {
                 // Se recupera el color de ese punto en la imagen a textorizar
                 $colorImage = $imageToTextorize->getColorAt($x, $y);
                 // Si el punto no es blanco se escribe
-                if (!$colorImage->isWhite()) {         
+                if (!$colorImage->isWhite() && !$colorImage->isTransparent()) {         
                     // Se obtiene el caracter a escribir      
                     $c = $string[$ti % strlen($string)];
                     // Se crea un objeto de tipo Character 

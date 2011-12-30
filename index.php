@@ -20,7 +20,7 @@ if(isset($_POST['submit'])) {
 
 
     $image = $_FILES['image'];
-    $textorizer = new Textorizer($image['tmp_name'], $tags);
+    $textorizer = new Textorizer($image['tmp_name'], $tags, "9", "/usr/share/fonts/truetype/msttcorefonts/Verdana_Bold.ttf");
 
     $textorizer->textorize();
 } else { ?>

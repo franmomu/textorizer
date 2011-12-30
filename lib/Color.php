@@ -43,20 +43,24 @@ class Color {
     public function setAlpha($alpha) {
         $this->alpha = $alpha;
     }
+
+    public function getSum() {
+        return $this->getRed()+$this->getGreen()+$this->getBlue();
+    }
     
     public function isBlack()
     {
-        return ($this->getRed()+$this->getGreen()+$this->getBlue()==0);
+        return ($this->getSum()==0);
     }
     
     public function isWhite()
     {
-        return ($this->getRed()+$this->getGreen()+$this->getBlue()==255*3);
+        return ($this->getSum()==255*3);
     }
     
     public function isTransparent()
     {
-        return ($this->getAlpha()==255);
+        return ($this->getAlpha() > 0 && $this->isBlack());
     }
 
 }
