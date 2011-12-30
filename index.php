@@ -20,11 +20,11 @@ if(isset($_POST['submit'])) {
 
     $tags = array();
     foreach ($textTags as $tag) {
-        $tags[] = new Tag($tag);   
+        $tags[] = new Tag($tag, rand(1,5));   
     }       
 
     $image = $_FILES['image'];
-    $textorizer = new Textorizer($image['tmp_name'], $tags, "8", "./Verdana_Bold.ttf", true);
+    $textorizer = new Textorizer($image['tmp_name'], $tags, 5, "./Verdana_Bold.ttf", true);
 
     $textorizer->textorize();
 } else { ?>
